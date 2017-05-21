@@ -1,6 +1,6 @@
 import requests
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import logging
 
 logger = logging.getLogger('pycanvas.BaseCanvasAPI')
@@ -114,7 +114,7 @@ class BaseCanvasAPI(object):
             uri = self.uri_for(uri)
 
         if force_urlencode_data is True:
-            uri += '?' + urllib.urlencode(data)
+            uri += '?' + urllib.parse.urlencode(data)
 
         assert method in ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']
 
@@ -175,7 +175,7 @@ class CanvasAPIError(Exception):
         self.response = response
 
     def __unicode__(self):
-        return u'API Request Failed. Status: {} Content: {}'.format(self.response.status_code, self.response.content)
+        return 'API Request Failed. Status: {} Content: {}'.format(self.response.status_code, self.response.content)
 
     def __str__(self):
         return 'API Request Failed. Status: {} Content: {}'.format(self.response.status_code, self.response.content)
